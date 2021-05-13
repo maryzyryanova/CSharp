@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -10,9 +10,6 @@ namespace painting
 
         [DllImport("User32.dll")] public static extern void ReleaseDC(IntPtr Window, IntPtr dc);
     }
-
-
-
     class Program
     {
         public static int ChooseColor()
@@ -48,6 +45,19 @@ namespace painting
             SolidBrush myBrash = new SolidBrush(Color.White);
             do
             {
+                Console.WriteLine("Do you want to try ?");
+                answer = Console.ReadLine();
+                while (answer != "no" || answer != "yes")
+                {
+                    Console.WriteLine("Incorrect input, write only yes/no answers");
+                    answer = Console.ReadLine();
+                }
+
+                if(answer == "no")
+                {
+                    break;
+                }
+
                 Console.WriteLine("Enter your path to the image: ");
                 path = Console.ReadLine();
                 Console.WriteLine("Enter your string to write: ");
@@ -94,13 +104,6 @@ namespace painting
                     graf.DrawImage(Image.FromFile("path"), pnt_1);
                     graf.Dispose();
                     DLL.ReleaseDC(IntPtr.Zero, ptrOfDesktop);
-                }
-                Console.WriteLine("Do you want to try again?");
-                answer = Console.ReadLine();
-                while(answer != "no" || answer != "yes")
-                {
-                    Console.WriteLine("Incorrect input, write only yes/no answers");
-                    answer = Console.ReadLine();
                 }
             } while (answer == "yes");
         }
